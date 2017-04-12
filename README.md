@@ -1,6 +1,6 @@
 To create import document structure, removing opening times as this causes index problems run the following command:
 
-jq -c '.[]  | .id = ._id | del (._id) | del (.openingTimes) | {"index": {"_index": "profiles", "_type": "gps", "_id": .id}}, .' data/gp-data.json > data/gp-data-bulk-insert.json 
+jq -c '.[]  | .id = ._id | del (._id) | del (.openingTimes) | {"index": {"_index": "profiles", "_type": "gps", "_id": .id}}, .' data/gp-data-merged.json > data/gp-data-bulk-insert.json 
 
 create and run: `docker-compose up --build --force-recreate`
 
