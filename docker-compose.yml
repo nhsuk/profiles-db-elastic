@@ -1,0 +1,14 @@
+version: '2.1'
+
+services:
+
+  profiles-elastic:
+    environment:
+      - xpack.security.enabled=false
+      - xpack.monitoring.enabled=false
+    build:
+      context: .
+    ports:
+      - 9200:9200
+    container_name: profiles-elastic
+    command: ["bin/elasticsearch"]
