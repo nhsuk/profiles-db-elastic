@@ -1,7 +1,7 @@
 # Elasticsearch instance with GP profiles data
 
 Running [`scripts/start`](scripts/start) will format
-[data/gp-data-merged.json](data/gp-data-merged.json)
+[data/input/gp-data-merged.json](data/input/gp-data-merged.json)
 ready for ingestion into ES and start the ES container.
 ES will be available on [localhost:9200](http://localhost:9200).
 

@@ -1,7 +1,7 @@
 #!/bin/bash
-echo 'Starting to format data/gp-data-merged.json ready for ES ingestion'
-jq -c '.[]  | .id = ._id | del (._id) | del (.openingTimes) | {"index": {"_index": "profiles", "_type": "gps", "_id": .id}}, .' data/gp-data-merged.json > data/gp-data-bulk-insert.json
-echo 'Finished formatting data/gp-data-merged.json ready for ES ingestion'
+echo 'Starting to format data/input/gp-data-merged.json ready for ES ingestion'
+jq -c '.[]  | .id = ._id | del (._id) | del (.openingTimes) | {"index": {"_index": "profiles", "_type": "gps", "_id": .id}}, .' data/input/gp-data-merged.json > data/output/gp-data-bulk-insert.json
+echo 'Finished formatting data/input/gp-data-merged.json ready for ES ingestion'
 
 echo 'Stop and remove any existing project containers, networks, etc.'
 docker-compose down -v
