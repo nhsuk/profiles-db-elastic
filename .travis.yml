@@ -5,4 +5,4 @@ services:
 
 script:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - ./ci-deployment/docker_ci.sh
+  - ./scripts/ci-deployment/docker_ci.sh
