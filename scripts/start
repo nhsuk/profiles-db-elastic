@@ -1,0 +1,8 @@
+#!/bin/bash
+./transform-data
+
+echo 'Stop and remove any existing project containers, networks, etc.'
+docker-compose down -v
+
+echo 'Start up ES contatiner'
+docker-compose up --build --force-recreate profiles-elastic
