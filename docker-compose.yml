@@ -8,6 +8,9 @@ services:
       - xpack.monitoring.enabled=false
     build:
       context: .
+    volumes:
+      - ./config/:/usr/share/elasticsearch/config
+      - ./data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
     container_name: profiles-elastic
