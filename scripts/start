@@ -1,5 +1,5 @@
 #!/bin/bash
-./transform-data
+# ./data/scripts/transform-data
 
 echo 'Stop and remove any existing project containers, networks, etc.'
 docker-compose down -v

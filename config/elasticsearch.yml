@@ -1,4 +1,3 @@
-path.data: /data
 # ======================== Elasticsearch Configuration =========================
 #
 # NOTE: Elasticsearch comes with reasonable defaults for most settings.
@@ -30,6 +29,7 @@ path.data: /data
 # ----------------------------------- Paths ------------------------------------
 #
 # Path to directory where to store the data (separate multiple locations by comma):
+path.data: /data
 #
 #path.data: /path/to/data
 #
