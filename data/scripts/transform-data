@@ -1,5 +1,5 @@
 #!/bin/bash
-echo 'Starting to format /usr/share/elasticsearch/tmp/input/gp-data-merged.json ready for ES ingestion'
-mkdir -p /usr/share/elasticsearch/tmp/output
-jq -c '.[]  | .id = ._id | del (._id) | del (.openingTimes) | {"index": {"_index": "profiles", "_type": "gps", "_id": .id}}, .' /usr/share/elasticsearch/tmp/input/gp-data-merged.json > /usr/share/elasticsearch/tmp/output/gp-data-bulk-insert.json
-echo 'Finished formatting /usr/share/elasticsearch/tmp/input/gp-data-merged.json ready for ES ingestion'
+echo 'Starting to format merge GP data ready for ES ingestion'
+mkdir -p /usr/share/elasticsearch/tmp/data/output
+jq -c '.[]  | .id = ._id | del (._id) | del (.openingTimes) | {"index": {"_index": "profiles", "_type": "gps", "_id": .id}}, .' /usr/share/elasticsearch/tmp/data/input/gp-data-merged.json > /usr/share/elasticsearch/tmp/data/output/gp-data-bulk-insert.json
+echo 'Finished formatting GP data ready for ES ingestion'
