@@ -4,11 +4,8 @@ services:
   - docker
 
 script:
-  - ./transform-data
+  - docker build .
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - ./scripts/ci-deployment/docker_ci.sh
-
-after_script:
-  - docker-compose down -v
