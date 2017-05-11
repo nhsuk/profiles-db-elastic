@@ -10,5 +10,4 @@ services:
       context: .
     ports:
       - 9200:9200
-    container_name: profiles-elastic
     command: ["bin/elasticsearch"]
