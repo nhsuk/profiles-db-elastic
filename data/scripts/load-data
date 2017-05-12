@@ -3,7 +3,7 @@ echo 'Starting ES'
 /docker-entrypoint.sh elasticsearch -p /tmp/pid &
 
 echo 'Waiting for ES to start'
-until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:9200); do
+until curl --output /dev/null --silent --head --fail http://127.0.0.1:9200; do
     printf '.'
     sleep 5
 done
