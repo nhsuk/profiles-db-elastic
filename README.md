@@ -1,9 +1,19 @@
-To create import document structure, removing opening times as this causes index problems run the following command:
+# Elasticsearch instance with GP profiles data
 
-jq -c '.[]  | .id = ._id | del (._id) | del (.openingTimes) | {"index": {"_index": "profiles", "_type": "gps", "_id": .id}}, .' data/gp-data-merged.json > data/gp-data-bulk-insert.json 
+Running [`scripts/start`](scripts/start) will start an Elasticsearch instance,
+loading data from
+[data/input/gp-data-merged.json](data/input/gp-data-merged.json) into an index
+named `profiles` [localhost:9200/profiles](http://localhost:9200/profiles).
 
-create and run: `docker-compose up --build --force-recreate`
+Sample query to return the top 10 of all results: `curl
+"http://127.0.0.1:9200/profiles/_search?q=*&pretty"`
 
-To clean before re-creating `docker-compose down -v`
+## Optional
 
-sample query `curl "http://127.0.0.1:9200/profiles/_search?q=ramdeehul&pretty"`
+Use [kibana](https://www.elastic.co/products/kibana) for ES querying and
+visualistion
+
+## Pre-requisites
+
+* Set `vm.max_map_count=262144` on the Docker instance to support ES
+  [requirement](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-prod-mode)

@@ -1,0 +1,19 @@
+#!/bin/bash
+# Start ES, load the data and shut it down
+echo 'Starting ES'
+/docker-entrypoint.sh elasticsearch -p /tmp/pid &
+
+echo 'Waiting for ES to start'
+until curl --output /dev/null --silent --head --fail http://127.0.0.1:9200; do
+    printf '.'
+    sleep 5
+done
+echo "ES has started"
+
+echo "Starting bulk data insert"
+curl -XPOST 127.0.0.1:9200/_bulk --data-binary @/usr/share/elasticsearch/tmp/data/output/gp-data-bulk-insert.json | jq '. | { errors: .errors, itemsProcessed: (.items | length), millisecondDuration: .took }'
+
+echo "Finished bulk data insert"
+
+echo "Shutting down ES"
+pkill -F /tmp/pid
