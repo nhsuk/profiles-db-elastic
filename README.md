@@ -8,6 +8,12 @@ named `profiles` [localhost:9200/profiles](http://localhost:9200/profiles).
 Sample query to return the top 10 of all results: `curl
 "http://127.0.0.1:9200/profiles/_search?q=*&pretty"`
 
+## Environment variables
+
+`ES_PORT` is available as an environment variable to override the default port
+used by ES (9200). Simply set `ES_PORT=XXXX` to the port value required within
+the shell.
+
 ## Optional
 
 Use [kibana](https://www.elastic.co/products/kibana) for ES querying and
