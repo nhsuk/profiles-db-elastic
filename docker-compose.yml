@@ -1,4 +1,4 @@
-version: '2.0'
+version: '2.1'
 
 services:
 
@@ -9,5 +9,10 @@ services:
     build:
       context: .
     ports:
-      - 9200:9200
+      - "${ES_PORT:-9200}:9200"
     command: ["bin/elasticsearch"]
+    volumes:
+      - esdata1:/data
+
+volumes:
+  esdata1:
