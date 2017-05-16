@@ -2,6 +2,10 @@ FROM elasticsearch:5.3.0
 RUN apt-get update && apt-get install -y \
     jq
 
+# Limit heapsize to 512MB, default is 2GB
+ENV ES_JAVA_OPTS="-Xms512m -Xmx512m"
+
+
 # Create data dir for persistence between restarts. Changing path here requires
 # corresponding change in ./config/elasticsearch.yml for path.data
 RUN mkdir /data && chown -R elasticsearch:elasticsearch /data
