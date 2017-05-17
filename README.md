@@ -8,11 +8,9 @@ named `profiles` [localhost:9200/profiles](http://localhost:9200/profiles).
 Sample query to return the top 10 of all results: `curl
 "http://127.0.0.1:9200/profiles/_search?q=*&pretty"`
 
-## Environment variables
-
-`ES_PORT` is available as an environment variable to override the default port
-used by ES (9200). Simply set `ES_PORT=XXXX` to the port value required within
-the shell.
+When running the container in this way, the port on which ES is exposed can be
+overridden by setting an environment variable - `ES_PORT` - equal to the port
+wishing to be used e.g. `ES_PORT=9201 ./scripts/start`.
 
 ## Optional
 
