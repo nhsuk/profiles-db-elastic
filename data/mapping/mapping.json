@@ -1,4 +1,24 @@
 {
+  "settings":{
+    "analysis":{
+      "analyzer":{
+        "gp_name_analyzer":{ 
+          "type":"custom",
+          "tokenizer":"standard",
+          "filter":[
+            "lowercase",
+            "gp_stop"
+          ]
+        }
+      },
+      "filter":{
+        "gp_stop":{
+          "type":"stop",
+          "stopwords": ["doctor", "doctors", "dr", "drs" ]
+        }
+      }
+    }
+  },
   "mappings": {
     "gps": {
       "properties": {
@@ -9,6 +29,7 @@
           "properties": {
             "addressLines": {
               "type": "text",
+              "analyzer": "gp_name_analyzer",
               "fields": {
                 "keyword": {
                   "type": "keyword",
@@ -81,6 +102,7 @@
         },
         "doctors": {
           "type": "text",
+          "analyzer": "gp_name_analyzer",
           "fields": {
             "keyword": {
               "type": "keyword",
@@ -170,6 +192,7 @@
         },
         "name": {
           "type": "text",
+          "analyzer": "gp_name_analyzer",
           "fields": {
             "keyword": {
               "type": "keyword",
