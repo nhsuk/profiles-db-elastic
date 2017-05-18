@@ -6,8 +6,11 @@ services:
 install:
   - sudo sysctl -w vm.max_map_count=262144
 
-script:
+before_script:
   - docker build .
+
+script:
+  - ./test/tests
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"

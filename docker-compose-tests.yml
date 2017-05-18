@@ -1,0 +1,15 @@
+version: '2.1'
+
+services:
+
+  travis-tests:
+    build: .
+    command: bash /scripts/test
+    user: root
+    volumes:
+      - ./scripts/test:/scripts/test
+    links:
+      - profiles-elastic:es
+
+  profiles-elastic:
+    build: .
