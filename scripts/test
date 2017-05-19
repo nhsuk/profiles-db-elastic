@@ -1,0 +1,23 @@
+#!/bin/bash
+echo 'Waiting for ES to start'
+until curl --output /dev/null --silent --head --fail http://es:9200; do
+    printf '.'
+    sleep 5
+done
+echo "ES has started"
+
+exit_status=0
+
+echo  "Test max file descriptors"
+expected_max=1048576
+max_file_descriptors=$(curl http://es:9200/_nodes/stats/process?filter_path=**.max_file_descriptors | jq '.. | .max_file_descriptors? | select(type != "null")')
+
+if [ "$max_file_descriptors" -eq $expected_max ]
+then
+  echo "Max file descriptors test passed. Expected $expected_max and got $max_file_descriptors"
+else
+  exit_status=1
+  echo "Max file descriptors test failed. Expected $expected_max but got $max_file_descriptors"
+fi
+
+exit $exit_status
