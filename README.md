@@ -38,7 +38,7 @@ wishing to be used e.g. `ES_PORT=9201 ./scripts/start`.
 Use [kibana](https://www.elastic.co/products/kibana) for ES querying and
 visualistion
 
-## Pre-requisites
+## Pre-requisites
 
 * Set `vm.max_map_count=262144` on the Docker instance to support ES
   [requirement](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-prod-mode)
