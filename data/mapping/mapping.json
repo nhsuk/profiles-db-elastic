@@ -14,7 +14,21 @@
       "filter":{
         "gp_stop":{
           "type":"stop",
-          "stopwords": ["doctor", "doctors", "dr", "drs" ]
+          "stopwords": [ 
+            "and",
+            "the",
+            "&",
+            "doctor",
+            "doctors",
+            "dr",
+            "drs",
+            "partners",
+            "practice",
+            "surgery",
+            "medical",
+            "health",
+            "centre",
+            "center" ]
         }
       }
     }
