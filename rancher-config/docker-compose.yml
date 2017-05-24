@@ -4,6 +4,23 @@ services:
 
   profiles-db-elastic:
     image: "nhsuk/profiles-db-elastic:${DOCKER_IMAGE_TAG}"
+    environment:
+      xpack.security.enabled: "false"
+      xpack.monitoring.enabled: "false"
+      bootstrap.memory_lock: "true"
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label_soft: c2s=true
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+      io.rancher.container.hostname_override: container_name
+      io.rancher.sidekicks: es-sysctl
+
+  es-sysctl:
+    image: rawmind/alpine-sysctl:0.1
+    network_mode: none
+    privileged: true
+    environment:
+      SYSCTL_KEY: vm.max_map_count
+      SYSCTL_VALUE: 262144
+    labels:
+      io.rancher.container.start_once: true
