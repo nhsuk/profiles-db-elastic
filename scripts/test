@@ -15,15 +15,12 @@ get_es_stats() {
 }
 
 validate_json() {
-  echo "Validating gp-data-merged.json"
-  jq '. | empty' tmp/data/input/gp-data-merged.json
-  echo "Validation exit code: $?"
-  exit_status=$(($? + exit_status))
-
-  echo "Validating mapping.json"
-  jq '. | empty' tmp/data/mapping/mapping.json
-  echo "Validation exit code: $?"
-  exit_status=$(($? + exit_status))
+  FILE=$1
+  echo "Validating $FILE"
+  if ! jq '. | empty' "$FILE"; then
+    echo "Unable to parse $FILE" >&2
+    exit 1
+  fi
 }
 
 test_max_file_descriptors() {
@@ -55,7 +52,9 @@ test_number_of_docs() {
   fi
 }
 
-validate_json
+validate_json tmp/data/input/gp-data-merged.json
+validate_json tmp/data/mapping/mapping.json
+
 get_es_stats
 test_max_file_descriptors
 test_number_of_docs
