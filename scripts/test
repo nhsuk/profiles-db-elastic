@@ -7,9 +7,9 @@ get_es_stats() {
   done
   echo "ES has started"
 
-  echo "Waiting 20 seconds for documents to be available"
-  sleep 20
-  curl http://es:9200/_nodes/stats > es-stats.json
+  echo "Waiting for up to 60 seconds for the cluster status be at least yellow"
+  curl "http://es:9200/_cluster/health?wait_for_status=yellow&timeout=60s"
+  curl "http://es:9200/_nodes/stats" > es-stats.json
   echo "Saved http://es:9200/_nodes/stats to es.stats.json"
   exit_status=0
 }
