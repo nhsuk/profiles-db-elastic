@@ -9,7 +9,7 @@ services:
     volumes:
       - ./scripts/test:/scripts/test
     links:
-      - profiles-elastic:es
+      - profiles-db-elastic:es
 
-  profiles-elastic:
+  profiles-db-elastic:
     build: .
