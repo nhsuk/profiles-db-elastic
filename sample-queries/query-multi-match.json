@@ -1,0 +1,20 @@
+{
+  "size": 8,
+  "explain": false,
+  "_source": [ "name", "address", "doctors" ],
+  "query" : { 
+    "multi_match": { 
+      "query": "Idle Medical Centre",
+      "fields": [ "name^2", "address.addressLines", "doctors" ],
+      "type": "cross_fields",
+      "operator": "and"
+    }
+  },
+  "highlight" : {
+    "fields" : {
+      "name" : {},
+      "doctors" : {},
+      "address.addressLines" : {}
+    }
+  }
+}

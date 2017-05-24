@@ -1,0 +1,43 @@
+{
+  "size": 8,
+  "explain": false,
+  "_source": [ "name", "address", "doctors" ],
+  "query" : { 
+    "bool": {
+      "should": [
+        {
+          "common": {
+            "name": {
+              "query": "idle medical centre",
+              "cutoff_frequency": 0.0001,
+              "boost": 2
+            }
+          }
+        },
+        {
+          "common": {
+            "address.addressLines": {
+              "query": "idle medical centre",
+              "cutoff_frequency": 0.0001
+            }
+          }
+        },
+        {
+          "common": {
+            "doctors": {
+              "query": "idle medical centre",
+              "cutoff_frequency": 0.0001
+            }
+          }
+        }
+      ]
+    }
+  },
+  "highlight" : {
+    "fields" : {
+      "name" : {},
+      "doctors" : {},
+      "address.addressLines" : {}
+    }
+  }
+}

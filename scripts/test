@@ -9,7 +9,7 @@ get_es_stats() {
 
   echo "Waiting for up to 60 seconds for the cluster status be at least yellow"
   curl --silent --output /dev/null "http://es:9200/_cluster/health?wait_for_status=yellow&timeout=60s"
-  curl --silent "http://es:9200/_nodes/stats" > es-stats.json
+  curl --silent "http://es:9200/_nodes/stats" | tee es-stats.json | jq '.'
   echo "Saved http://es:9200/_nodes/stats to es.stats.json"
   exit_status=0
 }
@@ -40,7 +40,7 @@ test_max_file_descriptors() {
 test_number_of_docs() {
   echo "Test number of docs in index"
   expected_docs=9537
-  number_of_docs="$(jq '.. | .docs?.count? | select(. != null)' es-stats.json)"
+  number_of_docs=$(curl -s "http://es:9200/profiles/_count?q=*" | jq '.count')
 
   echo "Number of DOCS: $number_of_docs"
   if [ "$number_of_docs" -eq $expected_docs ]

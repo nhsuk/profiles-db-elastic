@@ -4,14 +4,26 @@
       "analyzer":{
         "gp_name_analyzer":{
           "type":"custom",
+          "tokenizer":"name_tokenizer",
+          "filter":[ "lowercase", "gp_title_stop" ]
+        },
+        "surgery_name_analyzer":{
+          "type":"custom",
           "tokenizer":"standard",
-          "filter":[
-            "lowercase",
-            "gp_stop"
-          ]
+          "filter":[ "lowercase" ]
+        }
+      },
+      "tokenizer": {
+        "name_tokenizer": {
+          "type": "pattern",
+          "pattern": "[^a-zA-Z']+"
         }
       },
       "filter":{
+        "gp_title_stop":{
+          "type":"stop",
+          "stopwords": [ "doctor", "doctors", "dr", "drs" ]
+        },
         "gp_stop":{
           "type":"stop",
           "stopwords": [ 
@@ -31,7 +43,7 @@
             "center" ]
         }
       }
-    }
+      }
   },
   "mappings": {
     "gps": {
@@ -43,7 +55,6 @@
           "properties": {
             "addressLines": {
               "type": "text",
-              "analyzer": "gp_name_analyzer",
               "fields": {
                 "keyword": {
                   "type": "keyword",
@@ -71,14 +82,13 @@
             }
           }
         },
-        "doctors": {
-          "type": "text",
-          "analyzer": "gp_name_analyzer",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
+        "doctors2": {
+          "type": "nested",
+          "properties": {
+             "name" : {
+               "type": "string",
+               "analyzer": "gp_name_analyzer"
+             }
           }
         },
         "location": {
@@ -99,7 +109,15 @@
         },
         "name": {
           "type": "text",
-          "analyzer": "gp_name_analyzer",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "name2": {
+          "type": "text",
           "fields": {
             "keyword": {
               "type": "keyword",

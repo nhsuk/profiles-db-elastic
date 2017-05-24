@@ -1,0 +1,32 @@
+{
+  "size": 30,
+  "explain": false,
+  "_source": [ "name", "address", "doctors" ],
+  "query" : { 
+    "bool": {
+      "must": {
+        "multi_match": { 
+          "query": "Beech House Surgery",
+          "fields": [ "name^2", "address.addressLines", "doctors" ],
+          "operator": "or"
+        }
+      },
+      "should":  [
+        { "match_phrase": { 
+          "name": {
+            "query": "Beech House Surgery" ,
+            "boost": 2
+          } 
+        } },
+        { "match_phrase": { "address.addressLines": "Beech House Surgery" } }
+      ]
+    }
+  },
+  "highlight" : {
+    "fields" : {
+      "name" : {},
+      "doctors" : {},
+      "address.addressLines" : {}
+    }
+  }
+}

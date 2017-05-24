@@ -1,0 +1,59 @@
+{
+  "size": 10,
+  "explain": false,
+  "_source": [ "name", "address", "doctors2" ],
+  "query" : {
+    "bool": {
+      "should": [
+        {
+          "common": {
+            "name": {
+              "query": "Hillcrest surgery",
+              "cutoff_frequency": 0.0001
+            }
+          }
+        },
+        {
+          "common": {
+            "name2": {
+              "query": "Hillcrest surgery",
+              "cutoff_frequency": 0.0001
+            }
+          }
+        },
+        {
+          "nested": {
+            "path": "doctors2",
+            "query":   {
+              "bool": {
+                "should": [
+                  {
+                    "common": {
+                      "doctors2.name": {
+                        "query": "Hillcrest surgery",
+                        "cutoff_frequency": 0.0001
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "inner_hits": {
+              "highlight": {
+                "fields": {
+                  "doctors2.name": {}
+                }
+              }
+            }
+          }
+        } ]
+    }
+  },
+  "highlight" : {
+    "fields" : {
+      "doctors2" : {},
+      "name" : {},
+      "name2" : {}
+    }
+  }
+}
