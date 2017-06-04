@@ -1,0 +1,31 @@
+{
+  "query": {
+    "bool": {
+      "must" : {
+        "match_all" : {}
+      },
+      "filter": {
+        "geo_distance": {
+          "distance": "1km", 
+          "location": { 
+            "lon": -1.46519099452929,
+            "lat": 54.0095586395326
+          }
+        }
+      }
+    }
+  },
+  "sort": [
+    {
+      "_geo_distance": {
+        "location": {
+          "lon": -1.46519099452929,
+          "lat": 54.0095586395326
+        },
+        "order":         "asc",
+        "unit":          "km",
+        "distance_type": "plane"
+      }
+    }
+  ]
+}
