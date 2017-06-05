@@ -8,7 +8,7 @@
         {
           "common": {
             "name": {
-              "query": "Hillcrest surgery",
+              "query": "Doctor Andrew Smith",
               "cutoff_frequency": 0.0001
             }
           }
@@ -16,7 +16,7 @@
         {
           "common": {
             "name2": {
-              "query": "Hillcrest surgery",
+              "query": "Doctor Andrew Smith",
               "cutoff_frequency": 0.0001
             }
           }
@@ -28,9 +28,9 @@
               "bool": {
                 "should": [
                   {
-                    "common": {
+                    "match": {
                       "doctors2.name": {
-                        "query": "Hillcrest surgery",
+                        "query": "Doctor Andrew Smith",
                         "cutoff_frequency": 0.0001
                       }
                     }

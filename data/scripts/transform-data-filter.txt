@@ -13,6 +13,7 @@ def ascii_upcase:
 .doctors2 = ( .doctors | map( { name: . } )) | 
 #.name2 = ( ( ( .name + " " + .address.addressLines[0] ) | ascii_downcase ) / " " | unique | join(" ") ) |
 .name2 = .address.addressLines[0] |
+.location = { lat: .location.coordinates[1], lon: .location.coordinates[0] } |
 .id = ._id |
 del (._id) |
 del (.openingTimes) |
