@@ -1,18 +1,6 @@
-# Function defs needed as upper/lower case conversion not available in jq 1.4 which
-# is the version installed on the ES image
-
-# like ruby's downcase - only characters A to Z are affected
-def ascii_downcase:
-  explode | map( if 65 <= . and . <= 90 then . + 32  else . end) | implode;
-
-# like ruby's upcase - only characters a to z are affected
-def ascii_upcase:
-  explode | map( if 97 <= . and . <= 122 then . - 32  else . end) | implode;
-
 .[] | 
 .doctors = ( .doctors | map( { name: . } )) |
 .alternativeName = .address.addressLines[0] |
-.location = { lat: .location.coordinates[1], lon: .location.coordinates[0] } |
 .id = ._id |
 del (._id) |
 del (.openingTimes) |
