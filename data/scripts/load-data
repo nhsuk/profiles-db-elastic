@@ -18,4 +18,5 @@ curl -s -XPOST 127.0.0.1:9200/_bulk --data-binary @/usr/share/elasticsearch/tmp/
 echo "Finished bulk data insert"
 
 echo "Shutting down ES"
+
 pkill -F /tmp/pid
