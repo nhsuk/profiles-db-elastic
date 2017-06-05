@@ -5,29 +5,7 @@ loading data from
 [data/input/gp-data-merged.json](data/input/gp-data-merged.json) into an index
 named `profiles` [localhost:9200/profiles](http://localhost:9200/profiles).
 
-Sample query to return the top 3 of a query by GP name:
-```
-curl -s -XPOST "http://localhost:9200/profiles/_search?pretty" -d '
-{
-  "size": 3,
-  "explain": false,
-  "_source": [ "name", "address", "doctors" ],
-  "query" : { 
-    "multi_match": { 
-      "query": "Doctor O'Connor",
-      "fields": [ "name^2", "address.addressLines", "doctors" ],
-      "operator": "or"
-    }
-  },
-  "highlight" : {
-    "fields" : {
-      "name" : {},
-      "doctors" : {},
-      "address.addressLines" : {}
-    }
-  }
-}'
-```
+There are a number of sample queries in [sample-queries](./sample-queries) which can be used to query the data. (e.g  `curl -s -XPOST "http://localhost:9200/profiles/_search?pretty" -d @sample_queries/query-nested-doctor.json | jq -C '.' | less -R`)
 
 When running the container in this way, the port on which ES is exposed can be
 overridden by setting an environment variable - `ES_PORT` - equal to the port

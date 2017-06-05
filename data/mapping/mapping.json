@@ -23,24 +23,6 @@
         "gp_title_stop":{
           "type":"stop",
           "stopwords": [ "doctor", "doctors", "dr", "drs" ]
-        },
-        "gp_stop":{
-          "type":"stop",
-          "stopwords": [ 
-            "and",
-            "the",
-            "&",
-            "doctor",
-            "doctors",
-            "dr",
-            "drs",
-            "partners",
-            "practice",
-            "surgery",
-            "medical",
-            "health",
-            "centre",
-            "center" ]
         }
       }
     }
@@ -82,7 +64,7 @@
             }
           }
         },
-        "doctors2": {
+        "doctors": {
           "type": "nested",
           "properties": {
              "name" : {
@@ -116,7 +98,7 @@
             }
           }
         },
-        "name2": {
+        "addressLine0": {
           "type": "text",
           "fields": {
             "keyword": {

@@ -1,7 +1,7 @@
 {
   "size": 10,
   "explain": false,
-  "_source": [ "name", "address", "doctors2" ],
+  "_source": [ "name", "address", "doctors" ],
   "query" : {
     "bool": {
       "should": [
@@ -15,22 +15,22 @@
         },
         {
           "common": {
-            "name2": {
-              "query": "Hillcrest surgery",
+            "addressLine0": {
+              "query": "Doctor Andrew Smith",
               "cutoff_frequency": 0.0001
             }
           }
         },
         {
           "nested": {
-            "path": "doctors2",
+            "path": "doctors",
             "query":   {
               "bool": {
                 "should": [
                   {
-                    "common": {
-                      "doctors2.name": {
-                        "query": "Hillcrest surgery",
+                    "match": {
+                      "doctors.name": {
+                        "query": "Doctor Andrew Smith",
                         "cutoff_frequency": 0.0001
                       }
                     }
@@ -41,7 +41,7 @@
             "inner_hits": {
               "highlight": {
                 "fields": {
-                  "doctors2.name": {}
+                  "doctors.name": {}
                 }
               }
             }
@@ -51,9 +51,9 @@
   },
   "highlight" : {
     "fields" : {
-      "doctors2" : {},
+      "doctors" : {},
       "name" : {},
-      "name2" : {}
+      "addressLine0" : {}
     }
   }
 }

@@ -10,9 +10,9 @@ def ascii_upcase:
   explode | map( if 97 <= . and . <= 122 then . - 32  else . end) | implode;
 
 .[] | 
-.doctors2 = ( .doctors | map( { name: . } )) | 
-#.name2 = ( ( ( .name + " " + .address.addressLines[0] ) | ascii_downcase ) / " " | unique | join(" ") ) |
-.name2 = .address.addressLines[0] |
+.doctors = ( .doctors | map( { name: . } )) |
+.addressLine0 = .address.addressLines[0] |
+.location = { lat: .location.coordinates[1], lon: .location.coordinates[0] } |
 .id = ._id |
 del (._id) |
 del (.openingTimes) |

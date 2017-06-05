@@ -7,7 +7,7 @@
       "should": [
         {
           "common": {
-            "doctors2.name": {
+            "doctors.name": {
               "query": "andrew smith",
               "cutoff_frequency": 0.0001
             }
