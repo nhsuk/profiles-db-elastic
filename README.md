@@ -12,6 +12,8 @@ A basic set of tests can be run from [`scripts/test`](scripts/test)
 
 The data in a running instance can be queried using the ElasticSearch REST API and a command line tool like curl.
 
+## Full Text Search Example
+
 ```
 curl -s -XPOST http://localhost:9200/profiles/_search?pretty -d '
 {
@@ -45,6 +47,43 @@ curl -s -XPOST http://localhost:9200/profiles/_search?pretty -d '
   }
 }'
 
+```
+
+## Geo-Location Search Example 
+
+```
+curl -s -XPOST http://localhost:9200/profiles/_search?pretty -d '
+{
+  "query": {
+    "bool": {
+      "must" : {
+        "match_all" : {}
+      },
+      "filter": {
+        "geo_distance": {
+          "distance": "1km", 
+          "location": { 
+            "lon": -1.46519099452929,
+            "lat": 54.0095586395326
+          }
+        }
+      }
+    }
+  },
+  "sort": [
+    {
+      "_geo_distance": {
+        "location": {
+          "lon": -1.46519099452929,
+          "lat": 54.0095586395326
+        },
+        "order":         "asc",
+        "unit":          "km",
+        "distance_type": "plane"
+      }
+    }
+  ]
+}
 ```
 
 Other useful endpoints on the API are:
