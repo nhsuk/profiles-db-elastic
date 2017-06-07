@@ -6,11 +6,6 @@
           "type":"custom",
           "tokenizer":"name_tokenizer",
           "filter":[ "lowercase", "gp_title_stop" ]
-        },
-        "surgery_name_analyzer":{
-          "type":"custom",
-          "tokenizer":"standard",
-          "filter":[ "lowercase" ]
         }
       },
       "tokenizer": {

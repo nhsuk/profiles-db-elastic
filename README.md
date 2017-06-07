@@ -5,15 +5,65 @@ loading data from
 [data/input/gp-data-merged.json](data/input/gp-data-merged.json) into an index
 named `profiles` [localhost:9200/profiles](http://localhost:9200/profiles).
 When running the container in this way, the port on which ES is exposed can be
-overridden by setting the environment variable `ES_PORT` (e.g. `ES_PORT=9201 ./scripts/start`).
+overridden by setting the environment variable `ES_PORT` (e.g. `ES_PORT=9201
+./scripts/start`).
 
 A basic set of tests can be run from [`scripts/test`](scripts/test)
 
-There are a number of sample queries in [sample-queries](./sample-queries) which can be used to query the data. (e.g  `curl -s -XPOST "http://localhost:9200/profiles/_search?pretty" -d @sample_queries/query-nested-doctor.json | jq -C '.' | less -R`)
+The data in a running instance can be queried using the ElasticSearch REST API and a command line tool like curl.
+
+```
+curl -s -XPOST http://localhost:9200/profiles/_search?pretty -d '
+{
+  "size": 10,
+  "explain": false,
+  "_source": [ "name", "alternativeName", "address", "doctors" ],
+  "query" : {
+    "bool": {
+      "must": {
+        "multi_match": {
+          "query": "Beech House Surgery",
+          "fields": [ "name^2", "alternativeName" ],
+          "operator": "and"
+        }
+      },
+      "should":  [
+        { "match_phrase": {
+          "name": {
+            "query": "Beech House Surgery" ,
+            "boost": 2
+          }
+        } }
+      ]
+    }
+  },
+  "highlight" : {
+    "fields" : {
+      "name" : {},
+      "alternativeName" : {}
+    }
+  }
+}'
+
+```
+
+Other useful endpoints on the API are:
+
+* Query index settings:
+  * `curl http://localhost:9200/profiles/_settings?pretty`
+* Query index mappings:
+  * `curl http://localhost:9200/profiles/_mappings?pretty`
+* Interact with an analyzer:
+ * `curl http://localhost:9200/profiles/_analze?pretty -d '{ "analyzer" : "gp_name_analyzer", "text" : "dr andrew jones" }'`
+
+See
+[here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html)
+for more detail on querying.
 
 ## Optional
 
-An alternative to using `curl` for ES config and querying is [kibana](https://www.elastic.co/products/kibana)
+An alternative to using `curl` for ES config and querying is
+[kibana](https://www.elastic.co/products/kibana)
 
 ## Pre-requisites
 
