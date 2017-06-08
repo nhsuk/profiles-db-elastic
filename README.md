@@ -62,7 +62,7 @@ curl -s -XPOST http://localhost:9200/profiles/_search?pretty -d '
       "filter": {
         "geo_distance": {
           "distance": "1km", 
-          "location": { 
+          "location.coordinates": { 
             "lon": -1.46519099452929,
             "lat": 54.0095586395326
           }
@@ -73,7 +73,7 @@ curl -s -XPOST http://localhost:9200/profiles/_search?pretty -d '
   "sort": [
     {
       "_geo_distance": {
-        "location": {
+        "location.coordinates": {
           "lon": -1.46519099452929,
           "lat": 54.0095586395326
         },

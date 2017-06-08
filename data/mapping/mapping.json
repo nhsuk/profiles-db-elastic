@@ -62,14 +62,18 @@
         "doctors": {
           "type": "nested",
           "properties": {
-             "name" : {
-               "type": "string",
-               "analyzer": "gp_name_analyzer"
-             }
+            "name" : {
+              "type": "string",
+              "analyzer": "gp_name_analyzer"
+            }
           }
         },
-        "location": {
-          "type": "geo_point"
+        "location" : {
+          "properties" : {
+            "coordinates" : {
+              "type" : "geo_point"
+            }
+          }
         },
         "name": {
           "type": "text",
