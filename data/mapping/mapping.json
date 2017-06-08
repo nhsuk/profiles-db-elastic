@@ -25,6 +25,21 @@
   "mappings": {
     "gps": {
       "properties": {
+        "openingTimes": {
+          "enabled": false
+        },
+        "facilities": {
+          "enabled": false
+        },
+        "services": {
+          "enabled": false
+        },
+        "onlineServices": {
+          "enabled": false
+        },
+        "contact": {
+          "enabled": false
+        },
         "acceptingNewPatients": {
           "type": "boolean"
         },
@@ -76,15 +91,6 @@
           }
         },
         "name": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        },
-        "addressLine0": {
           "type": "text",
           "fields": {
             "keyword": {
