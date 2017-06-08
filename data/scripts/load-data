@@ -11,11 +11,12 @@ done
 echo "ES has started"
 
 echo "Create Index Mappings"
-curl -s -XPUT 127.0.0.1:9200/profiles --data-binary @/usr/share/elasticsearch/tmp/data/mapping/mapping.json | jq '.'
+curl -s -XPUT 127.0.0.1:9200/profiles?pretty --data-binary @/usr/share/elasticsearch/tmp/data/mapping/mapping.json
 echo "Starting bulk data insert"
 curl -s -XPOST 127.0.0.1:9200/_bulk --data-binary @/usr/share/elasticsearch/tmp/data/output/gp-data-bulk-insert.json | jq '. | { errors: .errors, itemsProcessed: (.items | length), millisecondDuration: .took }'
 
 echo "Finished bulk data insert"
 
 echo "Shutting down ES"
+
 pkill -F /tmp/pid

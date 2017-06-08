@@ -4,39 +4,66 @@ Running [`scripts/start`](scripts/start) will start an Elasticsearch instance,
 loading data from
 [data/input/gp-data-merged.json](data/input/gp-data-merged.json) into an index
 named `profiles` [localhost:9200/profiles](http://localhost:9200/profiles).
+When running the container in this way, the port on which ES is exposed can be
+overridden by setting the environment variable `ES_PORT` (e.g. `ES_PORT=9201
+./scripts/start`).
 
-Sample query to return the top 3 of a query by GP name:
+A basic set of tests can be run from [`scripts/test`](scripts/test)
+
+The data in a running instance can be queried using the ElasticSearch REST API and a command line tool like curl.
+
 ```
-curl -s -XPOST "http://localhost:9200/profiles/_search?pretty" -d '
+curl -s -XPOST http://localhost:9200/profiles/_search?pretty -d '
 {
-  "size": 3,
+  "size": 10,
   "explain": false,
-  "_source": [ "name", "address", "doctors" ],
-  "query" : { 
-    "multi_match": { 
-      "query": "Doctor O'Connor",
-      "fields": [ "name^2", "address.addressLines", "doctors" ],
-      "operator": "or"
+  "_source": [ "name", "alternativeName", "address", "doctors" ],
+  "query" : {
+    "bool": {
+      "must": {
+        "multi_match": {
+          "query": "Beech House Surgery",
+          "fields": [ "name^2", "alternativeName" ],
+          "operator": "and"
+        }
+      },
+      "should":  [
+        { "match_phrase": {
+          "name": {
+            "query": "Beech House Surgery" ,
+            "boost": 2
+          }
+        } }
+      ]
     }
   },
   "highlight" : {
     "fields" : {
       "name" : {},
-      "doctors" : {},
-      "address.addressLines" : {}
+      "alternativeName" : {}
     }
   }
 }'
+
 ```
 
-When running the container in this way, the port on which ES is exposed can be
-overridden by setting an environment variable - `ES_PORT` - equal to the port
-wishing to be used e.g. `ES_PORT=9201 ./scripts/start`.
+Other useful endpoints on the API are:
+
+* Query index settings:
+  * `curl http://localhost:9200/profiles/_settings?pretty`
+* Query index mappings:
+  * `curl http://localhost:9200/profiles/_mappings?pretty`
+* Interact with an analyzer:
+ * `curl http://localhost:9200/profiles/_analze?pretty -d '{ "analyzer" : "gp_name_analyzer", "text" : "dr andrew jones" }'`
+
+See
+[here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html)
+for more detail on querying.
 
 ## Optional
 
-Use [kibana](https://www.elastic.co/products/kibana) for ES querying and
-visualistion
+An alternative to using `curl` for ES config and querying is
+[kibana](https://www.elastic.co/products/kibana)
 
 ## Pre-requisites
 

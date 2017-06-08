@@ -10,7 +10,7 @@ before_script:
   - docker build .
 
 script:
-  - ./test/tests
+  - ./scripts/test
 
 after_success:
   - bash ./scripts/ci-deployment/deploy.sh

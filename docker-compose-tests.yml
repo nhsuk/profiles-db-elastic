@@ -2,12 +2,12 @@ version: '2'
 
 services:
 
-  travis-tests:
+  container-tests:
     build: .
-    command: bash /scripts/test
+    command: bash /scripts/container-tests
     user: root
     volumes:
-      - ./scripts/test:/scripts/test
+      - ./scripts/container-tests:/scripts/container-tests
     links:
       - profiles-db-elastic:es
 

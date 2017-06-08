@@ -4,31 +4,20 @@
       "analyzer":{
         "gp_name_analyzer":{
           "type":"custom",
-          "tokenizer":"standard",
-          "filter":[
-            "lowercase",
-            "gp_stop"
-          ]
+          "tokenizer":"name_tokenizer",
+          "filter":[ "lowercase", "gp_title_stop" ]
+        }
+      },
+      "tokenizer": {
+        "name_tokenizer": {
+          "type": "pattern",
+          "pattern": "[^a-zA-Z']+"
         }
       },
       "filter":{
-        "gp_stop":{
+        "gp_title_stop":{
           "type":"stop",
-          "stopwords": [ 
-            "and",
-            "the",
-            "&",
-            "doctor",
-            "doctors",
-            "dr",
-            "drs",
-            "partners",
-            "practice",
-            "surgery",
-            "medical",
-            "health",
-            "centre",
-            "center" ]
+          "stopwords": [ "doctor", "doctors", "dr", "drs" ]
         }
       }
     }
@@ -43,7 +32,6 @@
           "properties": {
             "addressLines": {
               "type": "text",
-              "analyzer": "gp_name_analyzer",
               "fields": {
                 "keyword": {
                   "type": "keyword",
@@ -72,13 +60,12 @@
           }
         },
         "doctors": {
-          "type": "text",
-          "analyzer": "gp_name_analyzer",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
+          "type": "nested",
+          "properties": {
+             "name" : {
+               "type": "string",
+               "analyzer": "gp_name_analyzer"
+             }
           }
         },
         "location": {
@@ -99,7 +86,15 @@
         },
         "name": {
           "type": "text",
-          "analyzer": "gp_name_analyzer",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "addressLine0": {
+          "type": "text",
           "fields": {
             "keyword": {
               "type": "keyword",

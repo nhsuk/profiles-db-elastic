@@ -1,5 +1,7 @@
 #!/bin/bash
 echo 'Starting to format merge GP data ready for ES ingestion'
-mkdir -p /usr/share/elasticsearch/tmp/data/output
-jq -c '.[]  | .id = ._id | del (._id) | del (.openingTimes) | {"index": {"_index": "profiles", "_type": "gps", "_id": .id}}, .' /usr/share/elasticsearch/tmp/data/input/gp-data-merged.json > /usr/share/elasticsearch/tmp/data/output/gp-data-bulk-insert.json
+pushd /usr/share/elasticsearch/tmp/data
+mkdir -p output
+jq -c -f scripts/transform-data-filter.jq input/gp-data-merged.json > output/gp-data-bulk-insert.json
+popd
 echo 'Finished formatting GP data ready for ES ingestion'
