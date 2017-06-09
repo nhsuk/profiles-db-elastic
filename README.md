@@ -1,6 +1,6 @@
 # Elasticsearch instance with GP profiles data
 
-[![Build Status](https://travis-ci.org/nhsuk/profiles-db-elastic.svg?branch=master)](https://travis-ci.org/nhsuk/iprofiles-db-elastic)
+[![Build Status](https://travis-ci.org/nhsuk/profiles-db-elastic.svg?branch=master)](https://travis-ci.org/nhsuk/profiles-db-elastic)
 
 Running [`scripts/start`](scripts/start) will start an Elasticsearch instance,
 loading data from
