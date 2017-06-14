@@ -17,9 +17,6 @@ The data in a running instance can be queried using the ElasticSearch REST API a
 
 ## Full Text Search Example
 
-We do not currently used date dependent indices as the data gets loaded once on starting
-up the image, however if the data will automatically refresh in the future 
-
 ```
 curl -s -XPOST http://localhost:9200/profiles/_search?pretty -d '
 {
@@ -108,18 +105,8 @@ for more detail on querying.
 ## Optional
 
 An alternative to using `curl` for ES config, querying and also for visualisation is [kibana](https://www.elastic.co/products/kibana).
-For the latest version use `brew install kibana`. Similarly you can use `apt-get` or `yum` for other platforms.
-
-Troubleshooting:
-* In case you have any issues of compatibility, please check [here](https://www.elastic.co/support/matrix#show_compatibility).
-
-Quickstart: 
-* On first use please remember the default port for ES is `9200` and the default index is `profiles`. [Here](https://www.youtube.com/watch?v=mMhnGjp8oOI) is a comprehensive intro.
-* The examples for the `Dev Tools` tab are the same as the ones using `curl`.
-* Example query for the `Discover` tab when you choose the `"name", "alternativeName", "address.addressLines", "address.postcode", "doctors"` as the source:
-```
-{"bool": {"must": {"multi_match": {"query": "Beech House Surgery", "fields":["name^2","alternativeName"], "operator":"and"}}, "should": [{"match_phrase": {"name": {"query": "Beech House Surgery", "boost":2}}}]}}
-```
+For the latest version go [here](https://www.elastic.co/guide/en/kibana/current/install.html) or your OS package manager. 
+You can also find a comprehensive intro [here](https://www.youtube.com/watch?v=mMhnGjp8oOI).
 
 ## Pre-requisites
 
