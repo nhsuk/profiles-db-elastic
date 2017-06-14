@@ -6,7 +6,7 @@ Running [`scripts/start`](scripts/start) will start an Elasticsearch instance,
 loading data from
 [data/input/gp-data-merged.json](data/input/gp-data-merged.json) into an index
 named `profiles` [localhost:9200/profiles](http://localhost:9200/profiles).
-<<<<<<< Updated upstream
+
 When running the container in this way, the port on which ES is exposed can be
 overridden by setting the environment variable `ES_PORT` (e.g. `ES_PORT=9201
 ./scripts/start`).
@@ -16,7 +16,7 @@ A basic set of tests can be run from [`scripts/test`](scripts/test)
 The data in a running instance can be queried using the ElasticSearch REST API and a command line tool like curl.
 
 ## Full Text Search Example
-=======
+
 We do not currently used date dependent indices as the data gets loaded once on starting
 up the image, however if the data will automatically refresh in the future 
 
@@ -107,12 +107,16 @@ for more detail on querying.
 
 ## Optional
 
-An alternative to using `curl` for ES config, querying and also is visualisation [kibana](https://www.elastic.co/products/kibana)
-Use version [5.3.*](https://www.elastic.co/blog/kibana-5-3-1-released) that works with out ES image and follow the installation steps
-[here](https://www.elastic.co/downloads/kibana#ga-release).
-The default port for ES is `9200` and default index is `profiles`
+An alternative to using `curl` for ES config, querying and also for visualisation is [kibana](https://www.elastic.co/products/kibana).
+For the latest version use `brew install kibana`. Similarly you can use `apt-get` or `yum` for other platforms.
 
-Here is an example query for the `Discover` tab when you choose the `"name", "alternativeName", "address.addressLines", "address.postcode", "doctors"` for the source:
+Troubleshooting:
+* In case you have any issues of compatibility, please check [here](https://www.elastic.co/support/matrix#show_compatibility).
+
+Quickstart: 
+* On first use please remember the default port for ES is `9200` and the default index is `profiles`. [Here](https://www.youtube.com/watch?v=mMhnGjp8oOI) is a comprehensive intro.
+* The examples for the `Dev Tools` tab are the same as the ones using `curl`.
+* Example query for the `Discover` tab when you choose the `"name", "alternativeName", "address.addressLines", "address.postcode", "doctors"` as the source:
 ```
 {"bool": {"must": {"multi_match": {"query": "Beech House Surgery", "fields":["name^2","alternativeName"], "operator":"and"}}, "should": [{"match_phrase": {"name": {"query": "Beech House Surgery", "boost":2}}}]}}
 ```
