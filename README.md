@@ -112,3 +112,11 @@ You can also find a comprehensive intro [here](https://www.youtube.com/watch?v=m
 
 * Set `vm.max_map_count=262144` on the Docker instance to support ES
   [requirement](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-prod-mode)
+
+## Architecture Decision Records
+
+This repo uses
+[Architecture Decision Records](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions)
+to record architectural decisions for this project.
+
+They are stored in [doc/architecture/decisions](doc/architecture/decisions).
