@@ -6,6 +6,7 @@ Running [`scripts/start`](scripts/start) will start an Elasticsearch instance,
 loading data from
 [data/input/gp-data-merged.json](data/input/gp-data-merged.json) into an index
 named `profiles` [localhost:9200/profiles](http://localhost:9200/profiles).
+
 When running the container in this way, the port on which ES is exposed can be
 overridden by setting the environment variable `ES_PORT` (e.g. `ES_PORT=9201
 ./scripts/start`).
@@ -103,8 +104,9 @@ for more detail on querying.
 
 ## Optional
 
-An alternative to using `curl` for ES config and querying is
-[kibana](https://www.elastic.co/products/kibana)
+An alternative to using `curl` for ES config, querying and also for visualisation is [kibana](https://www.elastic.co/products/kibana).
+For the latest version go [here](https://www.elastic.co/guide/en/kibana/current/install.html) or your OS package manager. 
+You can also find a comprehensive intro [here](https://www.youtube.com/watch?v=mMhnGjp8oOI).
 
 ## Pre-requisites
 
