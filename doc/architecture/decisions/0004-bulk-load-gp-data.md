@@ -1,4 +1,4 @@
-# 3. Build Image with GP Data
+# 4. Build Image with GP Data
 
 Date: 2017-06-15
 
