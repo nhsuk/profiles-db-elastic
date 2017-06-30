@@ -23,6 +23,7 @@ services:
         splunk-sourcetype: docker
         splunk-source: profiles-db-elastic
         splunk-verify-connection: "false"
+        tag: '{{.ImageName}} {{.Name}} {{.FullID}}'
 
   es-sysctl:
     image: rawmind/alpine-sysctl:0.1
