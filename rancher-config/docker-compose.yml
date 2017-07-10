@@ -14,17 +14,6 @@ services:
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.hostname_override: container_name
       io.rancher.sidekicks: es-sysctl
-    logging:
-      driver: splunk
-      options:
-        splunk-url: ${SPLUNK_HEC_URL}
-        splunk-token: ${SPLUNK_HEC_TOKEN}
-        splunk-insecureskipverify: "true"
-        splunk-sourcetype: docker
-        splunk-source: profiles-db-elastic
-        splunk-verify-connection: "false"
-        tag: "{{`{{.ImageName}} {{.Name}} {{.FullID}}`}}"
-        splunk-format: json
 
   es-sysctl:
     image: rawmind/alpine-sysctl:0.1
