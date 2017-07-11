@@ -52,7 +52,7 @@ curl -s -XPOST http://localhost:9200/profiles/_search?pretty -d '
 
 ```
 
-## Geo-Location Search Example 
+## Geo-Location Search Example
 
 ```
 curl -s -XPOST http://localhost:9200/profiles/_search?pretty -d '
@@ -119,4 +119,4 @@ This repo uses
 [Architecture Decision Records](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions)
 to record architectural decisions for this project.
 
-They are stored in [doc/architecture/decisions](doc/architecture/decisions).
+They are stored in [doc/adr](doc/adr).
