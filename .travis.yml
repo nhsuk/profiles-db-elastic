@@ -1,16 +1,10 @@
 sudo: required
+services: docker
 
-services:
-  - docker
+install: sudo sysctl -w vm.max_map_count=262144
 
-install:
-  - sudo sysctl -w vm.max_map_count=262144
+before_script: docker build .
 
-before_script:
-  - docker build .
+script: bash ./scripts/test
 
-script:
-  - ./scripts/test
-
-after_success:
-  - bash ./scripts/ci-deployment/deploy.sh
+after_success: bash ./scripts/ci-deployment/deploy.sh
