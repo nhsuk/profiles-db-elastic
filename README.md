@@ -1,3 +1,7 @@
+# DEPRECATED - no longer actively maintained
+
+---
+
 # Elasticsearch instance with GP profiles data
 
 [![Build Status](https://travis-ci.org/nhsuk/profiles-db-elastic.svg?branch=master)](https://travis-ci.org/nhsuk/profiles-db-elastic)
